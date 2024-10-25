@@ -1,18 +1,23 @@
 name: Release & Publish to pub.dev
 
 on:
-  workflow_dispatch:
-    inputs:
-      release-type:
-        description: 'Specify release type: regular, alpha, beta, or rc'
-        required: true
-        default: 'regular'
-        type: choice
-        options:
-          - regular
-          - alpha
-          - beta
-          - rc
+  # workflow_dispatch:
+  #   inputs:
+  #     release-type:
+  #       description: 'Specify release type: regular, alpha, beta, or rc'
+  #       required: true
+  #       default: 'regular'
+  #       type: choice
+  #       options:
+  #         - regular
+  #         - alpha
+  #         - beta
+  #         - rc
+  push:
+    tags:
+    # must align with the tag-pattern configured on pub.dev, often just replace
+      # {{version}} with [0-9]+.[0-9]+.[0-9]+
+    - 'v*' # tag-pattern on pub.dev: 'v{{version}}'
 
         
 jobs:
