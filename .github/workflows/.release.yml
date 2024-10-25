@@ -1,46 +1,20 @@
-name: Release & Publish to pub.dev
+# .github/workflows/publish.yml
+name: Publish to pub.dev
 
 on:
   push:
     tags:
-      - 'v*'  # Tag pattern on pub.dev: 'v{{version}}'
+    # must align with the tag-pattern configured on pub.dev, often just replace
+      # {{version}} with [0-9]+.[0-9]+.[0-9]+
+    - 'v[0-9]+.[0-9]+.[0-9]+' # tag-pattern on pub.dev: 'v{{version}}'
+    # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
+    # - '[0-9]+.[0-9]+.[0-9]+' # tag-pattern on pub.dev: '{{version}}'
+    # If your repository contains multiple packages consider a pattern like:
+    # - 'my_package_name-v[0-9]+.[0-9]+.[0-9]+'
 
+# Publish using the reusable workflow from dart-lang.
 jobs:
-  release:
+  publish:
     permissions:
-      id-token: write  # Required for OpenID Connect
-      contents: write   # Required for creating releases
-    runs-on: ubuntu-latest
-
-    steps:
-      # - name: Validate branch
-      #   run: |
-      #     if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
-      #       echo "Error: This workflow can only be run on the main branch."
-      #       exit 1
-      #     fi
-
-      - name: Checkout source code
-        uses: actions/checkout@v4
-
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@v1
-
-      - name: Install Node.js dependencies
-        run: npm ci
-
-      - name: Publish package
-        env:
-          PUB_DEV_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}  # Assuming you store your token here
-        run: |
-          dart pub get
-          echo "Publishing package..."
-          dart pub publish -f
-
-      - name: Print success message
-        if: success()
-        run: echo "Release and publishing completed successfully!"
-
-      - name: Handle failure
-        if: failure()
-        run: echo "Release process failed."
+      id-token: write # Required for authentication using OIDC
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
