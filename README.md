@@ -1,12 +1,12 @@
-# sdk_test_flutter
+# test_error_api_code
 
-A brief description of your package. This package provides functionality for [insert a short summary of what your package does].
+A Dart package designed for handling and testing various error codes in API responses. This package provides a robust framework to streamline error management, making it easier for developers to identify and handle different error scenarios in their applications.
 
 ## Features
 
-- **Feature 1**: Describe what your package does in more detail.
-- **Feature 2**: Explain another key feature that sets your package apart.
-- **Feature 3**: Include any additional features your package provides.
+- **Error Code Management**: Simplifies the process of managing and categorizing error codes returned from APIs.
+- **Testing Utilities**: Includes utilities to facilitate testing error handling in your applications.
+- **Customizable Responses**: Allows developers to define custom error responses based on different error scenarios.
 
 ## Installation
 
@@ -14,5 +14,4 @@ To use this package, add the following dependency to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  sdk_test_flutter: ^0.0.1
-.
+  test_error_api_code: ^0.0.1

@@ -1,0 +1,64 @@
+name: Release & Publish to pub.dev
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: 'Specify release type: regular, alpha, beta, or rc'
+        required: true
+        default: 'regular'
+        type: choice
+        options:
+          - regular
+          - alpha
+          - beta
+          - rc
+
+jobs:
+  release:
+    permissions:
+      id-token: write
+      contents: write  # Required for creating releases
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TYPE: ${{ github.event.inputs.release-type }}
+
+    steps:
+      - name: Validate branch
+        run: |
+          if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
+            echo "Error: This workflow can only be run on the main branch."
+            exit 1
+          fi
+
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30  # Update to v2
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Set Git user
+        run: |
+          git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
+
+      - name: Run release-it
+        run: |
+          if [ "$RELEASE_TYPE" == "regular" ]; then
+            npx release-it
+          else
+            npx release-it --preRelease="$RELEASE_TYPE"
+          fi
+        env:
+          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
+      - name: Print success message
+        if: success()
+        run: echo "Release and publishing completed successfully!"
+
+      - name: Handle failure
+        if: failure()
+        run: echo "Release process failed."
