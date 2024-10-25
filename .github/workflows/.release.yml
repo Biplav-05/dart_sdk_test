@@ -37,7 +37,7 @@ jobs:
         run: |
           dart pub get
           echo "Publishing package..."
-          dart pub publish --force --token=$PUB_DEV_TOKEN
+          dart pub publish -f
 
       - name: Print success message
         if: success()
