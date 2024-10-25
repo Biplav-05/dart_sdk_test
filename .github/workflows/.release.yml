@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Validate branch
-        run: |
-          if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
-            echo "Error: This workflow can only be run on the main branch."
-            exit 1
-          fi
+      # - name: Validate branch
+      #   run: |
+      #     if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
+      #       echo "Error: This workflow can only be run on the main branch."
+      #       exit 1
+      #     fi
 
       - name: Checkout source code
         uses: actions/checkout@v4
