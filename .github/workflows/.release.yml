@@ -14,6 +14,7 @@ on:
           - beta
           - rc
 
+        
 jobs:
   release:
     permissions:
@@ -54,6 +55,13 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+          
+      - name: publish package
+        uses: k-paxian/dart-package-publisher@v1.5.1
+        with:
+            credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+
+    
 
       - name: Print success message
         if: success()
