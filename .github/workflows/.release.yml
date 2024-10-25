@@ -17,9 +17,9 @@ on:
         
 jobs:
   release:
-    permissions:
-      id-token: write
-      contents: write  # Required for creating releases
+    # permissions:
+    #   id-token: write
+    #   contents: write  # Required for creating releases
     runs-on: ubuntu-latest
     env:
       RELEASE_TYPE: ${{ github.event.inputs.release-type }}
@@ -60,10 +60,6 @@ jobs:
       #   uses: k-paxian/dart-package-publisher@v1.5.1
       #   with:
       #       credentialJson: ${{ secrets.CREDENTIAL_JSON }}
-
-      - name: publish package
-        uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-          
 
     
 
