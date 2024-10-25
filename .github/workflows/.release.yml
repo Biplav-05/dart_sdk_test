@@ -35,8 +35,8 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Setup Dart SDK
-        uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30  # Update to v2
+      # - name: Setup Dart SDK
+      #   uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30  # Update to v2
 
       - name: Install Node.js dependencies
         run: npm ci
@@ -55,11 +55,15 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-          
+
+      # - name: publish package
+      #   uses: k-paxian/dart-package-publisher@v1.5.1
+      #   with:
+      #       credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+
       - name: publish package
-        uses: k-paxian/dart-package-publisher@v1.5.1
-        with:
-            credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+        uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+          
 
     
 
