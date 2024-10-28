@@ -1,5 +1,12 @@
 
 
+# 0.3.0 (2024-10-28)
+
+
+### Features
+
+* one ([7f644f1](https://github.com/Biplav-05/dart_sdk_test/commit/7f644f18a6813631c153d490325dfadc927e5c2a))
+
 ## 0.2.1 (2024-10-28)
 
 
