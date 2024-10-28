@@ -13,10 +13,6 @@ on:
           - alpha
           - beta
           - rc
-  push:
-    tags:
-      - 'v*'
-
 jobs:
   release:
     if: github.event_name == 'workflow_dispatch'
@@ -56,25 +52,6 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-
-      - name: Fetch all tags
-        run: |
-          git fetch --tags
-          git pull --tags
-          echo "Current tags:"
-          git tag -l
-
-  publish:
-    needs: release
-    if: |
-      success() && (
-        (github.event_name == 'workflow_dispatch' && needs.release.result == 'success') ||
-        (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))
-      )
-    permissions:
-      id-token: write
-      contents: read
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
 
 # # release.yml
 # name: Release & Publish
