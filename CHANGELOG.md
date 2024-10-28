@@ -1,5 +1,12 @@
 
 
+# 0.2.0 (2024-10-28)
+
+
+### Features
+
+* fasf ([ad162ec](https://github.com/Biplav-05/dart_sdk_test/commit/ad162ecddf0f18ee2805909e2b52787027a9e7a2))
+
 ## 0.1.3 (2024-10-28)
 
 
