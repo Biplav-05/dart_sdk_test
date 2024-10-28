@@ -55,6 +55,12 @@ jobs:
       
       - name: Verify Remote Tags
         run: git ls-remote --tags origin
+
+  publish:
+    needs: release
+    permissions:
+      id-token: write  # Required for authentication using OIDC
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
       
         
 
