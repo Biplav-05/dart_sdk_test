@@ -1,6 +1,5 @@
 # publish.yml
-name: Publish to pub.dev
-
+name: Publish Workflow
 on:
   push:
     tags:
