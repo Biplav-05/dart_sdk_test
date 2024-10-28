@@ -1,5 +1,12 @@
 
 
+## 0.9.1 (2024-10-28)
+
+
+### Bug Fixes
+
+* tag annonage ([e877717](https://github.com/Biplav-05/dart_sdk_test/commit/e877717556efe88519bd9bbbee561aa5b076d1eb))
+
 # 0.9.0 (2024-10-28)
 
 
