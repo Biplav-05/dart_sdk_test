@@ -52,8 +52,9 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          - name: Wait for 30 seconds after release
-          run: sleep 30  # Waits for 30 seconds after release job completes
+      
+      - name: Wait for 30 seconds after release
+        run: sleep 30  # Waits for 30 seconds after release job completes
   
 
   # Job for publishing to pub.dev immediately after release
