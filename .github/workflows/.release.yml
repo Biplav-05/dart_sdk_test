@@ -1,4 +1,4 @@
-name: Release & Publish Workflow
+name: Release Workflow
 
 on:
   workflow_dispatch:
@@ -15,7 +15,6 @@ on:
           - rc
 jobs:
   release:
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: write
