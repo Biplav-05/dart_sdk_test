@@ -14,7 +14,7 @@
       "./script/update_version.sh pubspec.yaml ${version}"
     ],
     "after:release": [
-      "git push origin --tags"
+      "git push origin main -f"
     ]
   },
   "git": {
