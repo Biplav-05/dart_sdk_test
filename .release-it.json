@@ -22,6 +22,7 @@
     "requireCleanWorkingDir": true,
     "requireBranch": "main",
     "tag": true,
+    "tagAnnotation": "Release ${version}",
     "tagName": "v${version}",
     "push": true
   },
