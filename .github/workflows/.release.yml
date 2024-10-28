@@ -14,9 +14,9 @@ on:
           - alpha
           - beta
           - rc
-  push:
-    tags:
-      - 'v*'  # Trigger on version tags
+  # push:
+  #   tags:
+  #     - 'v*'  # Trigger on version tags
 
 jobs:
   release:
@@ -66,12 +66,12 @@ jobs:
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
 
-  publish:
-    needs: release
-    permissions:
-      id-token: write # Required for authentication using OIDC
-      contents: read  # Required for checking out code
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+  # publish:
+  #   needs: release
+  #   permissions:
+  #     id-token: write # Required for authentication using OIDC
+  #     contents: read  # Required for checking out code
+  #   uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
 
 
 
