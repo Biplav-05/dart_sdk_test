@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Important: fetch all history and tags
-          # token: ${{ secrets.TOKEN_GITHUB }}
+          token: ${{ secrets.TOKEN_GITHUB }}
       
       - name: Install Node.js dependencies
         run: npm ci
