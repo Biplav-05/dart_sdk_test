@@ -41,14 +41,12 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/*'
-
-      - name: Install dependencies
-        run: |
-          npm init -y
-          npm install --save-dev release-it @release-it/conventional-changelog
+        run: npm ci
+        
+      # - name: Install dependencies
+      #   run: |
+      #     npm init -y
+      #     npm install --save-dev release-it @release-it/conventional-changelog
 
       - name: Set Git user
         run: |
