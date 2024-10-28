@@ -14,7 +14,7 @@
       "./script/update_version.sh pubspec.yaml ${version}"
     ],
     "after:release": [
-      "git push origin main -f"
+      "git push origin HEAD"
     ]
   },
   "git": {
@@ -24,7 +24,8 @@
     "tag": true,
     "tagAnnotation": "Release ${version}",
     "tagName": "v${version}",
-    "push": true
+    "push": true,
+    "requireUpstream": true
   },
   "npm": {
     "publish": false
