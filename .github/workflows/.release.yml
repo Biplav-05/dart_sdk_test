@@ -13,9 +13,6 @@ on:
           - alpha
           - beta
           - rc
-  push:
-    tags:
-      - 'v*'
 
 jobs:
   # Job for manual version bump using release-it
@@ -53,9 +50,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Job for publishing to pub.dev when a tag is pushed
+  # Job for publishing to pub.dev immediately after release
   publish:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: release
     permissions:
       id-token: write  # Required for authentication using OIDC
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
