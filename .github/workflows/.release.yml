@@ -15,14 +15,14 @@ on:
           - rc
   push:
     tags:
-      - 'v*'  # Trigger on version tags
+      - 'v*'
 
 jobs:
   release:
-    if: github.event_name == 'workflow_dispatch'  # Only run for manual trigger
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Required for pushing code
+      contents: write
       actions: write
     env:
       RELEASE_TYPE: ${{ github.event.inputs.release-type }}
@@ -35,26 +35,18 @@ jobs:
             exit 1
           fi
           
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Important: fetch all history and tags
+          fetch-depth: 0
           token: ${{ secrets.TOKEN_GITHUB }}
       
-      - name: Install Node.js dependencies
-        run: npm ci
+      - run: npm ci
 
       - name: Set Git user
         run: |
           git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
           git config --global user.name "${{ secrets.GIT_USER_NAME }}"
 
-      - name: Debug Git status before release
-        run: |
-          git status
-          git branch
-          git tag
-          
       - name: Run release-it
         run: |
           if [ "$RELEASE_TYPE" == "regular" ]; then
@@ -64,24 +56,25 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-          
+
+      - name: Fetch all tags
+        run: |
+          git fetch --tags
+          git pull --tags
+          echo "Current tags:"
+          git tag -l
 
   publish:
-    # Run after release job or when a tag is pushed
+    needs: release
     if: |
       success() && (
         (github.event_name == 'workflow_dispatch' && needs.release.result == 'success') ||
         (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))
       )
-    needs: [release]
     permissions:
-      id-token: write # Required for authentication using OIDC
-      contents: read  # Required for checking out code
+      id-token: write
+      contents: read
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-
-
-
-
 
 # # release.yml
 # name: Release & Publish
