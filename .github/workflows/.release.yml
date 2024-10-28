@@ -15,7 +15,7 @@ on:
           - rc
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'  # Trigger publish on version tags
+      - 'v*'  # Trigger publish on version tags
 
 jobs:
   release:
@@ -50,7 +50,7 @@ jobs:
             npx release-it --preRelease="$RELEASE_TYPE"
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
 
   publish:
     needs: release
