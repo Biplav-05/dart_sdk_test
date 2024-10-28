@@ -51,7 +51,7 @@ jobs:
             npx release-it --preRelease="$RELEASE_TYPE"
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
       
       - name: Wait for 30 seconds after release
         run: sleep 30  # Waits for 30 seconds after release job completes
