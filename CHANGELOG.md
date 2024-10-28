@@ -1,5 +1,12 @@
 
 
+## [0.10.7](https://github.com/Biplav-05/dart_sdk_test/compare/v0.10.6...v0.10.7) (2024-10-28)
+
+
+### Bug Fixes
+
+* one ([d52870b](https://github.com/Biplav-05/dart_sdk_test/commit/d52870b3e605c39d64f6640efa33849e57f37adc))
+
 ## [0.10.6](https://github.com/Biplav-05/dart_sdk_test/compare/v0.10.5...v0.10.6) (2024-10-28)
 
 ## [0.10.5](https://github.com/Biplav-05/dart_sdk_test/compare/v0.10.4...v0.10.5) (2024-10-28)
