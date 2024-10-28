@@ -1,5 +1,12 @@
 
 
+## 0.4.2 (2024-10-28)
+
+
+### Bug Fixes
+
+* one ([9f21c42](https://github.com/Biplav-05/dart_sdk_test/commit/9f21c420f89fd8696729af1b077181fd40f43612))
+
 ## 0.4.1 (2024-10-28)
 
 # 0.4.0 (2024-10-28)
