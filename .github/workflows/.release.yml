@@ -34,6 +34,9 @@ jobs:
 
       - name: Checkout source code
         uses: actions/checkout@v4
+
+      - name: Install Node.js dependencies
+        run: npm ci
     
       - name: Set Git user
         run: |
