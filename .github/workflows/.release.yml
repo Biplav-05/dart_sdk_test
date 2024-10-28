@@ -13,9 +13,6 @@ on:
           - alpha
           - beta
           - rc
-  push:
-    tags:
-      - 'v*'  # Trigger the publish on version tags
 
 jobs:
   release:
@@ -55,6 +52,10 @@ jobs:
 
       - name: Verify Tag Creation
         run: git tag -l
+      
+      - name: Verify Remote Tags
+        run: git ls-remote --tags origin
+      
         
 
 # name: Release & Publish
