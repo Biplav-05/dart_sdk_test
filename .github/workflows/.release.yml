@@ -1,20 +1,73 @@
-# .github/workflows/publish.yml
-name: Publish to pub.dev
+name: Release & Publish
 
 on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: 'Specify release type: regular, alpha, beta, or rc'
+        required: true
+        default: 'regular'
+        type: choice
+        options:
+          - regular
+          - alpha
+          - beta
+          - rc
   push:
     tags:
-    # must align with the tag-pattern configured on pub.dev, often just replace
-      # {{version}} with [0-9]+.[0-9]+.[0-9]+
-    - 'v[0-9]+.[0-9]+.[0-9]+' # tag-pattern on pub.dev: 'v{{version}}'
-    # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
-    # - '[0-9]+.[0-9]+.[0-9]+' # tag-pattern on pub.dev: '{{version}}'
-    # If your repository contains multiple packages consider a pattern like:
-    # - 'my_package_name-v[0-9]+.[0-9]+.[0-9]+'
+      - 'v*'
 
-# Publish using the reusable workflow from dart-lang.
 jobs:
-  publish:
+  # Job for manual version bump using release-it
+  release:
+    if: github.event_name == 'workflow_dispatch'
     permissions:
-      id-token: write # Required for authentication using OIDC
+      contents: write  # Required for creating releases
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TYPE: ${{ github.event.inputs.release-type }}
+
+    steps:
+      - name: Validate branch
+        run: |
+          if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
+            echo "Error: This workflow can only be run on the main branch."
+            exit 1
+          fi
+
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+
+      - name: Install dependencies
+        run: |
+          npm init -y
+          npm install --save-dev release-it @release-it/conventional-changelog
+
+      - name: Set Git user
+        run: |
+          git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
+
+      - name: Run release-it
+        run: |
+          if [ "$RELEASE_TYPE" == "regular" ]; then
+            npx release-it
+          else
+            npx release-it --preRelease="$RELEASE_TYPE"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Job for publishing to pub.dev when a tag is pushed
+  publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      id-token: write  # Required for authentication using OIDC
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
