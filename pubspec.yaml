@@ -1,6 +1,6 @@
 name: test_error_api_code
 description: A Dart package designed for handling and testing various error codes in API responses, providing a robust framework for error management..
-version: 0.4.3
+version: 0.4.4
 repository: https://github.com/Biplav-05/dart_sdk_test
 homepage: https://dart.dev/
 
