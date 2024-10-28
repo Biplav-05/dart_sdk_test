@@ -75,6 +75,7 @@ on:
           - rc
 
 jobs:
+  # Job for manual version bump using release-it
   release:
     if: github.event_name == 'workflow_dispatch'
     permissions:
@@ -82,8 +83,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RELEASE_TYPE: ${{ github.event.inputs.release-type }}
-    outputs:
-      TAG_NAME: ${{ steps.capture_tag.outputs.tag_name }}
 
     steps:
       - name: Validate branch
@@ -113,30 +112,16 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-
-      # Capture the created tag name as an output
-      - name: Capture Tag Name
-        id: capture_tag
-        run: echo "::set-output name=tag_name::$(git tag -l | tail -n 1)"
+      
+      # - name: Wait for 30 seconds after release
+      #   run: sleep 30  # Waits for 30 seconds after release job completes
 
   publish:
     needs: release
-    if: needs.release.outputs.TAG_NAME
+    # if: startsWith(github.ref, 'refs/tags/')
     permissions:
       id-token: write  # Required for authentication using OIDC
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Publish to pub.dev
-        uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-        with:
-          working-directory: path/to/package/within/repository
-          version: ${{ needs.release.outputs.TAG_NAME }}  # Use the captured tag name
-
-
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
 
   # # This step runs if the condition fails
   #   else:
