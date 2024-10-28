@@ -65,18 +65,9 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-          
-      # - name: Debug Git status after release
-      #   run: |
-      #     git status
-      #     git branch
-      #     git tag
-          
-      # - name: Force push tags
-      #   run: git push --tags --force
 
   publish:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')  # Only run on version tag push
+    needs: release
     permissions:
       id-token: write # Required for authentication using OIDC
       contents: read  # Required for checking out code
