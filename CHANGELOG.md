@@ -1,5 +1,12 @@
 
 
+## 0.7.3-beta.0 (2024-10-28)
+
+
+### Bug Fixes
+
+* ok ([57415bb](https://github.com/Biplav-05/dart_sdk_test/commit/57415bb23de5ecfaaec7c5c4edeb430af5bc6393))
+
 ## [0.7.2](https://github.com/Biplav-05/dart_sdk_test/compare/v8.4.5...v0.7.2) (2024-10-28)
 
 ## 0.7.1 (2024-10-28)
