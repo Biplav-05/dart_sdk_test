@@ -25,8 +25,17 @@ jobs:
       RELEASE_TYPE: ${{ github.event.inputs.release-type }}
 
     steps:
+      - name: Validate branch
+        run: |
+          if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
+            echo "Error: This workflow can only be run on the main branch."
+            exit 1
+          fi
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Install Node.js dependencies
+        run: npm ci
 
       - name: Run release-it
         run: |
@@ -86,8 +95,8 @@ jobs:
 #       - name: Checkout source code
 #         uses: actions/checkout@v4
 
-#       - name: Install Node.js dependencies
-#         run: npm ci
+      # - name: Install Node.js dependencies
+      #   run: npm ci
     
 #       - name: Set Git user
 #         run: |
