@@ -48,7 +48,9 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-
+      - name: Verify Tag Creation
+        run: git tag -l
+        
 
 # name: Release & Publish
 
