@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write  # Required for pushing code
+      actions: write
     env:
       RELEASE_TYPE: ${{ github.event.inputs.release-type }}
 
@@ -49,28 +50,6 @@ jobs:
           fi
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-
-      - name: Verify Tag Creation
-        run: git tag -l
-      
-      - name: Verify Remote Tags
-        run: git ls-remote --tags origin
-
-      
-
-      # # Push the new tags to trigger the publish workflow
-      # - name: Push tags
-      #   run: |
-      #     git push --tags
-      #   env:
-      #     TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
-
-  # publish:
-  #   needs: release
-  #   permissions:
-  #     id-token: write  # Required for authentication using OIDC
-  #   uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-      
         
 
 # name: Release & Publish
