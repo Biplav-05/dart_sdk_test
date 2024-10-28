@@ -53,8 +53,8 @@ jobs:
         env:
           TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
       
-      - name: Wait for 30 seconds after release
-        run: sleep 30  # Waits for 30 seconds after release job completes
+      # - name: Wait for 30 seconds after release
+      #   run: sleep 30  # Waits for 30 seconds after release job completes
 
   publish:
     needs: release
