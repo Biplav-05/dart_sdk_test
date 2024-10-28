@@ -1,14 +1,14 @@
+# publish.yml
 name: Publish to pub.dev
 
 on:
   push:
     tags:
-      - '*'
+      - 'v*'  # Only react to version tags
 
 jobs:
   publish:
     permissions:
       id-token: write # Required for authentication using OIDC
+      contents: read  # Required for checking out code
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    # with:
-    #   working-directory: path/to/package/within/repository
