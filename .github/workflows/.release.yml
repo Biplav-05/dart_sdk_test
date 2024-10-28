@@ -72,6 +72,8 @@ jobs:
       # Checkout latest source code with all history and tags
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all commits and tags
     
       # Setup Dart SDK with JWT token
       - name: Setup Dart SDK
