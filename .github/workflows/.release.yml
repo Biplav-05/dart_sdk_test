@@ -57,9 +57,38 @@ jobs:
         run: sleep 30  # Waits for 30 seconds after release job completes
   
 
-  # Job for publishing to pub.dev immediately after release
+  # # Job for publishing to pub.dev immediately after release
+  # publish:
+  #   needs: release
+  #   permissions:
+  #     id-token: write  # Required for authentication using OIDC
+  #   uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
   publish:
     needs: release
     permissions:
       id-token: write  # Required for authentication using OIDC
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout latest source code with all history and tags
+      - name: Checkout code
+        uses: actions/checkout@v4
+    
+      # Setup Dart SDK with JWT token
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+  
+      # Install dependencies
+      - name: Install dependencies
+        run: dart pub get
+        working-directory: ${{ inputs.working-directory }}
+  
+      # Publish - dry run (optional but useful for debugging)
+      - name: Publish - dry run
+        run: dart pub publish --dry-run
+        working-directory: ${{ inputs.working-directory }}
+  
+      # Publish to pub.dev
+      - name: Publish to pub.dev
+        run: dart pub publish -f
+        working-directory: ${{ inputs.working-directory }}
+  
