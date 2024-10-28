@@ -1,5 +1,12 @@
 
 
+## 0.7.3 (2024-10-28)
+
+
+### Bug Fixes
+
+* hawa ([8b2b1ff](https://github.com/Biplav-05/dart_sdk_test/commit/8b2b1ff493d1f12a111652de698069a3c8060295))
+
 ## 0.7.3-beta.0 (2024-10-28)
 
 
