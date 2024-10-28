@@ -58,12 +58,12 @@ jobs:
 
       
 
-      # Push the new tags to trigger the publish workflow
-      - name: Push tags
-        run: |
-          git push --tags
-        env:
-          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+      # # Push the new tags to trigger the publish workflow
+      # - name: Push tags
+      #   run: |
+      #     git push --tags
+      #   env:
+      #     TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
 
   # publish:
   #   needs: release
