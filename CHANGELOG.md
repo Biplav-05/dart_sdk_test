@@ -1,5 +1,12 @@
 
 
+## 0.6.2 (2024-10-28)
+
+
+### Bug Fixes
+
+* it ([c25c02e](https://github.com/Biplav-05/dart_sdk_test/commit/c25c02e95ccccca66026d7a844ef18399855b089))
+
 ## 0.6.1 (2024-10-28)
 
 # 0.6.0 (2024-10-28)
