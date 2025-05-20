@@ -1,5 +1,7 @@
 
 
+## [2.0.1](https://github.com/Biplav-05/dart_sdk_test/compare/v2.0.1-alpha.0...v2.0.1) (2025-05-20)
+
 ## [2.0.1-alpha.0](https://github.com/Biplav-05/dart_sdk_test/compare/v2.0.0...v2.0.1-alpha.0) (2025-05-20)
 
 # 2.0.0 (2025-05-20)
