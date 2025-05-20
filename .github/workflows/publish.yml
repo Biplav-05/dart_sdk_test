@@ -3,7 +3,7 @@ name: Publish Workflow
 on:
   push:
     tags:
-      - 'V*'  # Only react to version tags
+      - 'v*'  # Only react to version tags
 
 jobs:
   publish:

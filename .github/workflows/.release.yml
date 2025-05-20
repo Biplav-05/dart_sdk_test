@@ -13,34 +13,33 @@ on:
           - alpha
           - beta
           - rc
+
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: release
     permissions:
       contents: write
       actions: write
+
     env:
       RELEASE_TYPE: ${{ github.event.inputs.release-type }}
+      GIT_USER_NAME: ${{ vars.GIT_USER_NAME }}
+      GIT_USER_EMAIL: ${{ vars.GIT_USER_EMAIL }}
 
     steps:
-      - name: Validate branch
-        run: |
-          if [[ "${{ github.ref }}" != "refs/heads/main" ]]; then
-            echo "Error: This workflow can only be run on the main branch."
-            exit 1
-          fi
-          
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.TOKEN_GITHUB }}
-      
+
       - run: npm ci
 
       - name: Set Git user
         run: |
-          git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
-          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
+          git config --global user.email "$GIT_USER_EMAIL"
+          git config --global user.name "$GIT_USER_NAME"
 
       - name: Run release-it
         run: |
